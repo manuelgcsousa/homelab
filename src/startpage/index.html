@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>mgcsousa's homelab</title>
+    <link href="favicon.png" rel="shortcut icon" type="image/x-icon"/>
+    <meta name="viewport" content="width=device-width, initial-scale=0.9">
+    <style>
+        body {
+            background-color: #1c1c1c;
+            color: #ffffff;
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 80vh;
+        }
+
+        h1 {
+            margin-top: 20px;
+        }
+
+        .links-box {
+            background-color: #2e2e2e;
+            padding: 20px;
+            border-radius: 10px;
+            width: 350px;
+            height: 400px;
+            margin: 20px auto;
+        }
+
+        .box-title {
+            font-weight: bold;
+            text-align: center;
+            color: #55CCE1;
+        }
+
+        ul {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        li {
+            margin: 10px 0;
+        }
+
+        a {
+            color: #888888;
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+
+        a:hover {
+            color: #55CCE1;
+        }
+    </style>
+</head>
+<body>
+    <h1>mgcsousa's homelab</h1>
+    <div class="links-box">
+        <h3 class="box-title">SERVICES</h2>
+        <ul>
+            <li><a href="http://192.168.27.69:8080">File Browser</a></li>
+            <li><a href="http://192.168.27.69:8123">Home Assistant</a></li>
+            <li><a href="http://192.168.27.69:81/admin">Pi-hole</a></li>
+            <li><a href="http://192.168.27.69:9091">Transmission</a></li>
+        </ul>
+        
+        <h3 style="padding-top: 25px;" class="box-title">MEDIA</h2>
+        <ul>
+            <li><a href="http://192.168.27.69:32400/web">Plex</a></li>
+            <li><a href="http://192.168.27.69:5055">Overseerr</a></li>
+            <li><a href="http://192.168.27.69:7878">Radarr</a></li>
+            <li><a href="http://192.168.27.69:8989">Sonarr</a></li>
+            <li><a href="http://192.168.27.69:9696">Prowlarr</a></li>
+        </ul>
+    </div>
+</body>
+</html>
