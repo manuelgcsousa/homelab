@@ -7,9 +7,6 @@ homeassistant/*
 overseerr/*
 !overseerr/.gitkeep
 
-pihole/*
-!pihole/.gitkeep
-
 plex/*
 !plex/.gitkeep
 
