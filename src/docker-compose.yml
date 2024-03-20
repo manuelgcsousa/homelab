@@ -12,34 +12,6 @@ services:
     working_dir: /app
     command: python3 -m http.server 80
 
-  pihole:
-    container_name: pihole
-    image: pihole/pihole:latest
-    restart: unless-stopped
-    volumes:
-      - ./pihole/etc-pihole:/etc/pihole
-      - ./pihole/etc-dnsmasq.d:/etc/dnsmasq.d
-    ports:
-      - "53:53/tcp"
-      - "53:53/udp"
-      - "81:80/tcp"
-    environment:
-      - TZ=Europe/Lisbon
-      - PIHOLE_DNS_=1.1.1.1;1.0.0.1
-      - WEBPASSWORD=password
-
-  filebrowser:
-    container_name: filebrowser
-    image: filebrowser/filebrowser
-    restart: unless-stopped
-    user: "1000:1000"
-    volumes:
-      - ./filebrowser/filebrowser.db:/database.db
-      - ./filebrowser/.filebrowser.json:/.filebrowser.json
-      - ${DRIVE_ENTRYPOINT}/usr:/srv
-    ports:
-      - "8080:8080"
-
   homeassistant:
     container_name: homeassistant
     image: lscr.io/linuxserver/homeassistant:latest
@@ -54,36 +26,17 @@ services:
       - PGID=1000
       - TZ=Europe/Lisbon
 
-  overseerr:
-    container_name: overseerr
-    image: lscr.io/linuxserver/overseerr:latest
+  filebrowser:
+    container_name: filebrowser
+    image: filebrowser/filebrowser
     restart: unless-stopped
+    user: "1000:1000"
     volumes:
-      - ./overseerr/config:/config
-    dns:
-      - 1.1.1.1
-      - 8.8.8.8
+      - ./filebrowser/filebrowser.db:/database.db
+      - ./filebrowser/.filebrowser.json:/.filebrowser.json
+      - ${DRIVE_ENTRYPOINT}/usr:/srv
     ports:
-      - 5055:5055
-    environment:
-      - PUID=1000
-      - PGID=1000
-      - TZ=Europe/Lisbon
-
-  plex:
-    container_name: plex
-    image: plexinc/pms-docker
-    restart: unless-stopped
-    network_mode: "host"
-    volumes:
-      - ./plex/config:/config
-      - ./plex/transcode:/transcode
-      - ${DRIVE_ENTRYPOINT}/usr/videos:/media
-    environment:
-      - PUID=1000
-      - PGID=1000
-      - TZ=Europe/Lisbon
-      - VERSION=docker
+      - "8080:8080"
 
   transmission-openvpn:
     container_name: transmission-openvpn
@@ -105,15 +58,46 @@ services:
     ports:
       - "9091:9091"
     environment:
-      - OPENVPN_PROVIDER=MULLVAD
-      - OPENVPN_CONFIG=ch_zrh
+      - OPENVPN_PROVIDER=-
+      - OPENVPN_CONFIG=-
       - OPENVPN_USERNAME=-
-      - OPENVPN_PASSWORD=m
+      - OPENVPN_PASSWORD=-
       - LOCAL_NETWORK=<LOCAL_IP>,<PIVPN_IP>
+
+  plex:
+    container_name: plex
+    image: plexinc/pms-docker
+    restart: unless-stopped
+    network_mode: "host"
+    volumes:
+      - ./plex/config:/config
+      - ./plex/transcode:/transcode
+      - ${DRIVE_ENTRYPOINT}/usr/videos:/media
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=Europe/Lisbon
+      - VERSION=docker
+
+  overseerr:
+    container_name: overseerr
+    image: lscr.io/linuxserver/overseerr:latest
+    restart: unless-stopped
+    volumes:
+      - ./overseerr/config:/config
+    dns:
+      - 1.1.1.1
+      - 8.8.8.8
+    ports:
+      - 5055:5055
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=Europe/Lisbon
 
   radarr:
     container_name: radarr
-    image: lscr.io/linuxserver/radarr:5.3.6
+    image: lscr.io/linuxserver/radarr:latest
     restart: unless-stopped
     volumes:
       - ./radarr:/config
@@ -128,7 +112,7 @@ services:
 
   sonarr:
     container_name: sonarr
-    image: lscr.io/linuxserver/sonarr:4.0.1
+    image: lscr.io/linuxserver/sonarr:latest
     restart: unless-stopped
     volumes:
       - ./sonarr:/config
@@ -143,7 +127,7 @@ services:
 
   prowlarr:
     container_name: prowlarr
-    image: lscr.io/linuxserver/prowlarr:1.13.3
+    image: lscr.io/linuxserver/prowlarr:latest
     restart: unless-stopped
     volumes:
       - ./prowlarr:/config
