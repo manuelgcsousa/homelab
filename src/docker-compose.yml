@@ -58,10 +58,10 @@ services:
     ports:
       - "9091:9091"
     environment:
-      - OPENVPN_PROVIDER=-
+      - OPENVPN_PROVIDER=MULLVAD
       - OPENVPN_CONFIG=-
       - OPENVPN_USERNAME=-
-      - OPENVPN_PASSWORD=-
+      - OPENVPN_PASSWORD=m
       - LOCAL_NETWORK=<LOCAL_IP>,<PIVPN_IP>
 
   plex:
