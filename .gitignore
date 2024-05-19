@@ -1,23 +1,26 @@
-filebrowser/*
+src/filebrowser/*
 !filebrowser/.filebrowser.json
 
-homeassistant/*
+src/homeassistant/*
 !homeassistant/.gitkeep
 
-overseerr/*
+src/overseerr/*
 !overseerr/.gitkeep
 
-plex/*
+src/pairdrop/*
+!pairdrop/.gitkeep
+
+src/plex/*
 !plex/.gitkeep
 
-prowlarr/*
+src/prowlarr/*
 !prowlarr/.gitkeep
 
-radarr/*
+src/radarr/*
 !radarr/.gitkeep
 
-sonarr/*
+src/sonarr/*
 !sonarr/.gitkeep
 
-transmission/*
+src/transmission/*
 !transmission/.gitkeep
