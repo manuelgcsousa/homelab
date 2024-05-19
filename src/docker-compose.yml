@@ -12,6 +12,23 @@ services:
     working_dir: /app
     command: python3 -m http.server 80
 
+  pairdrop:
+    container_name: pairdrop
+    image: lscr.io/linuxserver/pairdrop:latest
+    restart: unless-stopped
+    ports:
+      - "3000:3000"
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=Europe/Lisbon
+      - DONATION_BUTTON_ACTIVE=false
+      - TWITTER_BUTTON_ACTIVE=false
+      - MASTODON_BUTTON_ACTIVE=false
+      - BLUESKY_BUTTON_ACTIVE=false
+      - CUSTOM_BUTTON_ACTIVE=false
+      - PRIVACYPOLICY_BUTTON_ACTIVE=false
+
   homeassistant:
     container_name: homeassistant
     image: lscr.io/linuxserver/homeassistant:latest
@@ -53,7 +70,7 @@ services:
         max-size: 10m
     volumes:
       - ./transmission:/config
-      - /etc/openvpn/mullvad:/etc/openvpn/custom/
+      - /etc/openvpn/${TRANSMISSION_OPENVPN_PROVIDER_VOL}:/etc/openvpn/custom/
       - ${DRIVE_ENTRYPOINT}/tmp/transmission-data:/data
     ports:
       - "9091:9091"
@@ -72,7 +89,8 @@ services:
     volumes:
       - ./plex/config:/config
       - ./plex/transcode:/transcode
-      - ${DRIVE_ENTRYPOINT}/usr/videos:/media
+      - ${DRIVE_ENTRYPOINT}/usr/local:/local
+      - ${DRIVE_ENTRYPOINT}/usr/remote:/remote
     environment:
       - PUID=1000
       - PGID=1000
@@ -89,7 +107,7 @@ services:
       - 1.1.1.1
       - 8.8.8.8
     ports:
-      - 5055:5055
+      - "5055:5055"
     environment:
       - PUID=1000
       - PGID=1000
@@ -101,7 +119,7 @@ services:
     restart: unless-stopped
     volumes:
       - ./radarr:/config
-      - ${DRIVE_ENTRYPOINT}/usr/videos/movies:/media
+      - ${DRIVE_ENTRYPOINT}/usr/remote:/remote
       - ${DRIVE_ENTRYPOINT}/tmp/transmission-data:/data
     ports:
       - "7878:7878"
@@ -116,7 +134,7 @@ services:
     restart: unless-stopped
     volumes:
       - ./sonarr:/config
-      - ${DRIVE_ENTRYPOINT}/usr/videos/shows:/media
+      - ${DRIVE_ENTRYPOINT}/usr/remote:/remote
       - ${DRIVE_ENTRYPOINT}/tmp/transmission-data:/data
     ports:
       - "8989:8989"
