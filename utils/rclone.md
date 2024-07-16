@@ -1,7 +1,7 @@
 # Rclone utils
 
 ## Example rclone config using 'jottacloud'
-```toml
+```conf
 [jottacloud]
 type = jottacloud
 configVersion = 1
