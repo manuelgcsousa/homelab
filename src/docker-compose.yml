@@ -4,7 +4,7 @@ services:
   startpage:
     container_name: startpage
     image: python:3
-    restart: unless-stopped
+    restart: on-failure
     volumes:
       - ./startpage:/app
     ports:
@@ -15,7 +15,7 @@ services:
   pairdrop:
     container_name: pairdrop
     image: lscr.io/linuxserver/pairdrop:latest
-    restart: unless-stopped
+    restart: on-failure
     ports:
       - "3000:3000"
     environment:
@@ -33,7 +33,7 @@ services:
     container_name: homeassistant
     image: lscr.io/linuxserver/homeassistant:latest
     network_mode: host
-    restart: unless-stopped
+    restart: on-failure
     volumes:
       - ./homeassistant:/config
     ports:
@@ -46,7 +46,7 @@ services:
   filebrowser:
     container_name: filebrowser
     image: filebrowser/filebrowser
-    restart: unless-stopped
+    restart: on-failure
     user: "1000:1000"
     volumes:
       - ./filebrowser/filebrowser.db:/database.db
@@ -58,7 +58,7 @@ services:
   transmission-openvpn:
     container_name: transmission-openvpn
     image: haugene/transmission-openvpn
-    restart: unless-stopped
+    restart: on-failure
     privileged: true
     cap_add:
       - NET_ADMIN
@@ -84,7 +84,7 @@ services:
   plex:
     container_name: plex
     image: plexinc/pms-docker
-    restart: unless-stopped
+    restart: on-failure
     network_mode: "host"
     volumes:
       - ./plex/config:/config
@@ -100,7 +100,7 @@ services:
   overseerr:
     container_name: overseerr
     image: lscr.io/linuxserver/overseerr:latest
-    restart: unless-stopped
+    restart: on-failure
     volumes:
       - ./overseerr/config:/config
     dns:
@@ -116,7 +116,7 @@ services:
   radarr:
     container_name: radarr
     image: lscr.io/linuxserver/radarr:latest
-    restart: unless-stopped
+    restart: on-failure
     volumes:
       - ./radarr:/config
       - ${DRIVE_ENTRYPOINT}/usr/remote:/remote
@@ -131,7 +131,7 @@ services:
   sonarr:
     container_name: sonarr
     image: lscr.io/linuxserver/sonarr:latest
-    restart: unless-stopped
+    restart: on-failure
     volumes:
       - ./sonarr:/config
       - ${DRIVE_ENTRYPOINT}/usr/remote:/remote
@@ -143,10 +143,24 @@ services:
       - PGID=1000
       - TZ=Europe/Lisbon
 
+  bazarr:
+    image: lscr.io/linuxserver/bazarr:latest
+    container_name: bazarr
+    restart: on-failure
+    volumes:
+      - ./bazarr:/config
+      - ${DRIVE_ENTRYPOINT}/usr/remote:/remote
+    ports:
+      - "6767:6767"
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=Europe/Lisbon
+
   prowlarr:
     container_name: prowlarr
     image: lscr.io/linuxserver/prowlarr:latest
-    restart: unless-stopped
+    restart: on-failure
     volumes:
       - ./prowlarr:/config
     ports:

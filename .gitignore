@@ -1,5 +1,8 @@
 .env
 
+src/bazarr/*
+!bazarr/.gitkeep
+
 src/filebrowser/*
 !filebrowser/.filebrowser.json
 
