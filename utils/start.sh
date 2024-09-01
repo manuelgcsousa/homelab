@@ -22,4 +22,6 @@ else
 fi
 
 echo "Starting containers..."
-docker compose --file $COMPOSE_FILE up --detach
+docker compose --file $COMPOSE_FILE down && docker compose --file $COMPOSE_FILE up --detach
+
+echo
