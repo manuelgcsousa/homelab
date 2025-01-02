@@ -8,7 +8,11 @@
 import logging
 import psutil
 
-from flask import Flask, jsonify, send_from_directory
+from flask import (
+    Flask,
+    jsonify,
+    render_template
+)
 
 
 app = Flask(__name__)
@@ -18,7 +22,19 @@ logging.disable(logging.CRITICAL)
 
 @app.route('/')
 def index():
-    return send_from_directory('static', 'index.html')
+    hostname = '192.168.27.69'
+    services = {
+        'File Browser': f"http://{hostname}:8080",
+        'Transmission': f"http://{hostname}:9091",
+        'Localboard': f"http://{hostname}:27049",
+        'Plex': f"http://{hostname}:32400/web",
+        'Overseerr': f"http://{hostname}:5055",
+        'Radarr': f"http://{hostname}:7878",
+        'Sonarr': f"http://{hostname}:8989",
+        'Bazarr': f"http://{hostname}:6767",
+        'Prowlarr': f"http://{hostname}:9696",
+    }
+    return render_template('index.html', services=services)
 
 
 @app.route('/stats')
