@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>mgcsousa'a homelab</title>
+    <link rel="shortcut icon" href="{{ url_for('static', filename='favicon.png') }}">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@1.0.2/css/bulma.min.css">
+  </head>
+
+  <body>
+    <section class="section">
+      <div class="container is-max-tablet">
+        <h1 class="title has-text-centered">mgcsousa's homelab</h1>
+
+        <div class="is-flex is-justify-content-center">
+          <button id="statsButton" class="button is-small is-info m-4">
+            Show Server Stats 
+          </button>
+        </div>
+
+        <div id="statsModal" class="box" style="display: none;">
+          <p>...</p>
+        </div>
+
+        <div class="notification is-primary" style="background-color: #242424">
+          <div class="columns">
+            <div class="column has-text-centered">
+              <div class="fixed-grid has-2-cols mt-4">
+                  <div class="grid">
+                    {% for key, value in services.items() %}
+                      <div class="cell">
+                        <a class="button has-text-info" href="{{ value }}">{{ key }}</a>
+                      </div>
+                    {% endfor %}
+                  </div>
+             </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <script>
+      const statsButton = document.getElementById('statsButton');
+      const statsModal = document.getElementById('statsModal');
+
+      let isFetching = false;
+      let fetchInterval = null;
+
+      async function alertStats() {
+        try {
+          const response = await fetch('/stats');
+          stats = await response.json();
+
+          statsModal.innerHTML = (
+            `<p>CPU: ${stats.cpu}</p>`
+            + `<p>RAM: ${stats.memory}</p>`
+            + `<p>Internal Disk: ${stats.internal_disk}</p>`
+            + `<p>External Disk: ${stats.external_disk}</p>`
+            + `<p>Temperature: ${stats.temperature}</p>`
+          );
+        } catch (error) {
+          statsModel.innerHTML = 'An error occured...';
+        }
+      } 
+
+      statsButton.addEventListener('click', async () => {
+        if (statsModal.style.display === 'none') {
+          statsButton.textContent = 'Hide Server Stats';
+          statsModal.style.display = 'block';
+
+          if (!isFetching) {
+            isFetching = true;
+
+            alertStats();
+            fetchInterval = setInterval(alertStats, 5000);
+          }
+        } else {
+          if (isFetching) {
+            isFetching = false;
+
+            statsButton.textContent = 'Show Server Stats';
+            statsModal.style.display = 'none';
+            statsModal.innerHTML = '...';
+
+            clearInterval(fetchInterval);
+            fetchInterval = null;
+          }
+        }
+      });
+    </script>
+  </body>
+</html>
