@@ -1,31 +1,31 @@
 .env
 
-src/bazarr/*
+lab/bazarr/*
 !bazarr/.gitkeep
 
-src/filebrowser/*
+lab/filebrowser/*
 !filebrowser/.filebrowser.json
 
-src/homeassistant/*
+lab/homeassistant/*
 !homeassistant/.gitkeep
 
-src/overseerr/*
+lab/overseerr/*
 !overseerr/.gitkeep
 
-src/pairdrop/*
+lab/pairdrop/*
 !pairdrop/.gitkeep
 
-src/plex/*
+lab/plex/*
 !plex/.gitkeep
 
-src/prowlarr/*
+lab/prowlarr/*
 !prowlarr/.gitkeep
 
-src/radarr/*
+lab/radarr/*
 !radarr/.gitkeep
 
-src/sonarr/*
+lab/sonarr/*
 !sonarr/.gitkeep
 
-src/transmission/*
+lab/transmission/*
 !transmission/.gitkeep
