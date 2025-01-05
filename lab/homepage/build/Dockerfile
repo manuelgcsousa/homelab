@@ -6,6 +6,6 @@ COPY . /app
 
 RUN pip install --no-cache-dir uv
 
-EXPOSE 5000
+EXPOSE 80
 
 CMD ["uv", "run", "main.py"]
