@@ -1,31 +1,7 @@
 .env
+lab/**/*
 
-lab/bazarr/*
-!bazarr/.gitkeep
+!lab/docker-compose.yml
+!lab/.env.example
+!lab/**/*.gitkeep
 
-lab/filebrowser/*
-!filebrowser/.filebrowser.json
-
-lab/homeassistant/*
-!homeassistant/.gitkeep
-
-lab/overseerr/*
-!overseerr/.gitkeep
-
-lab/pairdrop/*
-!pairdrop/.gitkeep
-
-lab/plex/*
-!plex/.gitkeep
-
-lab/prowlarr/*
-!prowlarr/.gitkeep
-
-lab/radarr/*
-!radarr/.gitkeep
-
-lab/sonarr/*
-!sonarr/.gitkeep
-
-lab/transmission/*
-!transmission/.gitkeep
