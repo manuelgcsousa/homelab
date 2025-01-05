@@ -1,6 +1,6 @@
 .env
-lab/**/*
+lab/**
 
 !lab/docker-compose.yml
 !lab/.env.example
-!lab/*/.gitkeep
+!lab/**/.gitkeep
